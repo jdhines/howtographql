@@ -246,7 +246,7 @@ Here's how you need to implement the subscription resolver in that new file:
 ```js
 function newLinkSubscribe (parent, args, context, info) {
   return context.db.subscription.link(
-    { where: { mutation_in: ['CREATED'] } },
+    { },
     info,
   )
 }
@@ -262,7 +262,7 @@ module.exports = {
 
 </Instruction>
 
-The code seems pretty straightforward. As mentioned before, the subscription resolver is provided as the value for a `subscribe` field inside a plain JavaScript object.
+The code seems pretty straightforward. As mentioned before, the subscription resolver is provided as the value for a `subscribe` field inside a plain JavaScript object. Now, you might have asked, "Why is the WHERE clause missing in our code that was shown in the example above?" Well, as of this writing, the `where` key in subscriptions are currently not working, but our subscription will still work without it.
 
 The `Prisma` binding instance on the `context` also exposes a `subscription` object which proxies the subscriptions from the Prisma GraphQL API. This function is used to resolve subscriptions and push the event data to subscribed clients. Prisma is taking care of all the complexity of handling the realtime functionality under the hood.
 
